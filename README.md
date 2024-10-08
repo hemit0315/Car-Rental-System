@@ -1,56 +1,59 @@
-#include<stdio.h>
-#include<string.h>
+        #include<stdio.h>
+        #include<string.h>
+        
+        struct car {
+            char name[50];
+            int seats;
+            float rent;
+            char status[20];
+        };
+        
+        void addcar(struct car cars[], int *n) 
+        {
+            printf("\nEnter The details of the Car : \n");
+            printf("\tName of Car : ");
+            scanf("%s", cars[*n].name);
+            printf("\n\tNo. of Seats in the Car :");
+            scanf("%i", &cars[*n].seats);
+            printf("\n\tRent of the Car : ");
+            scanf("%f", &cars[*n].rent);
+            strcpy(cars[*n].status, "Available");
+            (*n)++;
+            printf("\nCar added successfully!\n\n");
+        }
+        
+        void display(struct car cars[], int n) 
+        {
+            if (n == 0) 
+        	{
+                printf("No cars available to display.\n");
+                return;
+            }
+            for(int i = 0; i < n; i++) 
+        	{
+                printf("\n\nCAR DETAILS : ");
+                printf("\n\tCar %i\n", i + 1);
+                printf("\tName of Car : %s\n", cars[i].name);
+                printf("\tNo of Seats in the Car : %i\n", cars[i].seats);
+                printf("\tRent of The Car : %.2f\n", cars[i].rent);
+                printf("\tAvailability Status of the Car : %s\n\n", cars[i].status);
+            }
+        }
+        
+        void bookcar(struct car cars[], int n) 
+        {
+            char carName[50];
+            int found = 0, days;
 
-struct car {
-    char name[50];
-    int seats;
-    float rent;
-    char status[20];
-};
-
-void addcar(struct car cars[], int *n) 
-{
-    printf("\nEnter The details of the Car : \n");
-    printf("\tName of Car : ");
-    scanf("%s", cars[*n].name);
-    printf("\n\tNo. of Seats in the Car :");
-    scanf("%i", &cars[*n].seats);
-    printf("\n\tRent of the Car : ");
-    scanf("%f", &cars[*n].rent);
-    strcpy(cars[*n].status, "Available");
-    (*n)++;
-    printf("\nCar added successfully!\n\n");
-}
-
-void display(struct car cars[], int n) 
-{
-    if (n == 0) 
-	{
-        printf("No cars available to display.\n");
-        return;
-    }
-    for(int i = 0; i < n; i++) 
-	{
-        printf("\n\nCAR DETAILS : ");
-        printf("\n\tCar %i\n", i + 1);
-        printf("\tName of Car : %s\n", cars[i].name);
-        printf("\tNo of Seats in the Car : %i\n", cars[i].seats);
-        printf("\tRent of The Car : %.2f\n", cars[i].rent);
-        printf("\tAvailability Status of the Car : %s\n\n", cars[i].status);
-    }
-}
-
-void bookcar(struct car cars[], int n) 
-{
-    char carName[50];
-    int found = 0, days;
     printf("\nEnter the name of the car you wish to book : ");
     scanf("%s", carName);
+
     for(int i = 0; i < n; i++) 
 	{
         if(strcmp(cars[i].name, carName) == 0) 
 		{
             found = 1;
+
             if(strcmp(cars[i].status, "Available") == 0) 
 			{
                 printf("\nCar is Available");
@@ -70,15 +73,17 @@ void bookcar(struct car cars[], int n)
 	{
         printf("Car not found!\n");
     }
-}
-
-void generatebill(struct car cars[], int n) 
-{
-    char carName[50];
-    int days, found = 0;
-    float total;
+        }
+        
+        void generatebill(struct car cars[], int n) 
+        {
+            char carName[50];
+            int days, found = 0;
+            float total;
+    
     printf("\nEnter the name of the car for the bill: ");
     scanf("%s", carName);
+    
     for(int i = 0; i < n; i++) 
 	{
         if(strcmp(cars[i].name, carName) == 0) 
@@ -87,6 +92,7 @@ void generatebill(struct car cars[], int n)
             printf("\nEnter the number of days : ");
             scanf("%i", &days);
             total = cars[i].rent * days;
+
             printf("\n--- Bill Summary ---\n");
             printf("| Car Name | Days | Rent per Day | Total Amount |\n");
             printf("|----------|------|--------------|--------------|\n");
@@ -98,14 +104,13 @@ void generatebill(struct car cars[], int n)
     if (!found) 
 	{
         printf("Car not found!\n");
-    }
-}
-
-int main() 
-{
+    }}
+    int main() 
+    {
     struct car cars[10];
     int n = 0; 
     int choice;
+    
     do 
 	{
         printf("\nCar Rental System Menu:\n");
@@ -116,6 +121,7 @@ int main()
         printf("5. Exit\n");
         printf("Choose an option: ");
         scanf("%d", &choice);
+
         switch (choice) 
 		{
             case 1:
@@ -144,5 +150,5 @@ int main()
                 printf("Invalid choice. Please try again.\n");
         }
     } while (choice != 5);
-    return 0;
-}
+
+    return 0;}
